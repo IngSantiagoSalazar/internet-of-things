@@ -1,0 +1,36 @@
+// Definir los pines donde están conectados los LEDs
+int ledPins[] = {13, 12, 11, 10, 9}; 
+int totalLeds = 5; 
+
+void setup() {
+  // Configurar los pines de los LEDs como salidas
+  for (int i = 0; i < totalLeds; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+}
+
+void loop() {
+  // Iteramos desde el número 0 hasta el 20
+  for (int i = 0; i <= 20; i++) {
+    // Llamamos a la función que controla los LEDs según el valor binario
+    updateLeds(i);
+    
+    // Esperamos 1 segundo antes de mostrar el siguiente número
+    delay(1000);
+  }
+  
+  // Detenemos el loop para que no repita el ciclo
+  while(true) {}
+}
+
+// Función que enciende los LEDs de acuerdo al número binario
+void updateLeds(int num) {
+  for (int i = 0; i < totalLeds; i++) {
+    // Verificamos si el bit en la posición 'i' está encendido (1) o apagado (0)
+    if (num & (1 << (totalLeds - 1 - i))) {
+      digitalWrite(ledPins[i], HIGH);  // Encender el LED
+    } else {
+      digitalWrite(ledPins[i], LOW);   // Apagar el LED
+    }
+  }
+}
